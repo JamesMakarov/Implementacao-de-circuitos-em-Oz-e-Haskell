@@ -1,0 +1,41 @@
+functor
+import 
+    Gates at 'Gates.ozf'
+define 
+
+    % half adder
+    fun {HalfAdderGate Xs Ys}
+        S = {XorGate Xs Ys}
+        C = {AndGate Xs Ys}
+    in 
+        S#C
+    end
+
+
+    % half subtractor
+    fun {HalfSubtractorGate Xs Ys}
+        D = {XorGate Xs Ys}
+        NotXs = {NotGate Xs}
+        B = {AndGate NotXs Ys}
+    in 
+        D#B
+    end
+
+    % full adder
+    fun {FullAdder Xs Ys Cin}
+        S1C1 = {HalfAdderGate Xs Ys}
+        S1   = S1C1.1
+        C1   = S1C1.2
+
+        SC2 = {HalfAdderGate S1 Cin}
+        S    = SC2.1
+        C2   = SC2.2
+
+        Cout = {OrGate C1 C2}
+    in
+        S#Cout
+    end
+
+
+
+
