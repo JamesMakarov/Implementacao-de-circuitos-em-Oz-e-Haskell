@@ -1,10 +1,10 @@
-# ⚡ Digital Logic Simulator: Oz & Haskell
+# Digital Logic Simulator: Oz & Haskell
 
 Este projeto explora a simulação de circuitos digitais utilizando **programação declarativa concorrente** e **lazy evaluation**.
 
 A ideia não é apenas recriar portas lógicas, mas demonstrar como o modelo de *dataflow* (em Oz) e *lazy streams* (em Haskell) são ferramentas poderosas para simular hardware, onde sinais são, essencialmente, fluxos contínuos de dados.
 
-## 🎯 O Objetivo
+## O Objetivo
 Baseado na Seção 4.3.5 do livro *Concepts, Techniques, and Models of Computer Programming* (CTM), o projeto consiste em:
 
 1.  **Componentização:** Criar Functors (módulos) encapsulados para portas básicas.
@@ -13,7 +13,7 @@ Baseado na Seção 4.3.5 do livro *Concepts, Techniques, and Models of Computer 
 
 ---
 
-## 🛠️ Parte 1: Implementação em Oz (Mozart)
+## Parte 1: Implementação em Oz (Mozart)
 
 No Oz, utilizamos variáveis *dataflow* e *threads* leves. Cada porta lógica é uma thread que processa uma lista (stream) de bits de entrada e produz uma lista de saída.
 
