@@ -1,5 +1,7 @@
 # Digital Logic in Oz and Haskell
 
+[![Haskell build](https://github.com/JamesMakarov/Implementacao-de-circuitos-em-Oz-e-Haskell/actions/workflows/ci.yml/badge.svg)](https://github.com/JamesMakarov/Implementacao-de-circuitos-em-Oz-e-Haskell/actions/workflows/ci.yml)
+
 Implementation of digital logic gates and arithmetic circuits in **Oz** and **Haskell**, used to compare two declarative programming models: concurrent dataflow and lazy evaluation.
 
 The project was inspired by the treatment of digital circuits in *Concepts, Techniques, and Models of Computer Programming*.
