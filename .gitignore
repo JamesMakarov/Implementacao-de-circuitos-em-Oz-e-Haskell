@@ -1,0 +1,16 @@
+# Oz build artifacts
+*.ozf
+
+# Haskell build artifacts
+*.hi
+*.o
+Main
+Main.exe
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
