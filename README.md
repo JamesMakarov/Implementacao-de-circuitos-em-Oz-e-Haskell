@@ -1,39 +1,114 @@
-# Digital Logic Simulator: Oz & Haskell
+# Digital Logic in Oz and Haskell
 
-Este projeto explora a simulação de circuitos digitais utilizando **programação declarativa concorrente** e **lazy evaluation**.
+Implementation of digital logic gates and arithmetic circuits in **Oz** and **Haskell**, used to compare two declarative programming models: concurrent dataflow and lazy evaluation.
 
-A ideia não é apenas recriar portas lógicas, mas demonstrar como o modelo de *dataflow* (em Oz) e *lazy streams* (em Haskell) são ferramentas poderosas para simular hardware, onde sinais são, essencialmente, fluxos contínuos de dados.
+The project was inspired by the treatment of digital circuits in *Concepts, Techniques, and Models of Computer Programming*.
 
-## O Objetivo
-Baseado na Seção 4.3.5 do livro *Concepts, Techniques, and Models of Computer Programming* (CTM), o projeto consiste em:
+## Implemented gates
 
-1.  **Componentização:** Criar Functors (módulos) encapsulados para portas básicas.
-2.  **Abstração:** Construir circuitos complexos (Somadores e Subtratores) reutilizando essas portas.
-3.  **Comparação:** Implementar a mesma lógica em dois paradigmas funcionais diferentes: **Oz** (Mozart) e **Haskell**.
+- NOT
+- AND
+- OR
+- XOR
+- NAND
 
----
+## Implemented circuits
 
-## Parte 1: Implementação em Oz (Mozart)
+- Half Adder
+- Full Adder
+- Half Subtractor
+- Full Subtractor
 
-No Oz, utilizamos variáveis *dataflow* e *threads* leves. Cada porta lógica é uma thread que processa uma lista (stream) de bits de entrada e produz uma lista de saída.
+## Why two languages?
 
-### Estrutura de Arquivos
-* `Gates.oz`: O "nível atômico". Contém a implementação das portas básicas (`And`, `Or`, `Xor`, `Not`, `Nand`) exportadas como um Functor.
-* `Circuits.oz`: O "nível lógico". Importa o `Gates.ozf` e constrói circuitos aritméticos:
-    * Half Adder & Full Adder
-    * Half Subtractor & Full Subtractor
-* `Main.oz`: O ambiente de teste. Instancia os circuitos, injeta sinais de entrada (streams de 0s e 1s) e exibe os resultados no `Browser`.
+Both implementations model signals as sequences of bits, but evaluate them differently.
 
-### Como rodar (Windows/Linux)
-Como o projeto é dividido em Functors, a ordem de compilação importa:
+### Oz
+
+The Oz version uses:
+
+- functors for modularization;
+- dataflow variables;
+- lightweight threads;
+- streams represented as lists.
+
+Each gate consumes one or more input streams and produces an output stream.
+
+### Haskell
+
+The Haskell version uses:
+
+- pure functions;
+- lazy lists;
+- `map` and `zipWith`;
+- composition of gates into larger circuits.
+
+Because lists are lazy, the same definitions can also work with streams whose values are produced incrementally.
+
+## Structure
+
+```text
+.
+├── Haskell/
+│   ├── Gates.hs
+│   ├── Circuits.hs
+│   └── Main.hs
+└── Oz/
+    ├── Gates.oz
+    ├── Circuits.oz
+    └── Main.oz
+```
+
+## Running the Haskell version
+
+With GHC installed:
 
 ```bash
-# 1. Compile as portas lógicas
+cd Haskell
+ghc Main.hs
+./Main
+```
+
+You can also run it without keeping the compiled executable:
+
+```bash
+runghc Main.hs
+```
+
+## Running the Oz version
+
+With Mozart/Oz installed:
+
+```bash
+cd Oz
 ozc -c Gates.oz
-
-# 2. Compile os circuitos (que dependem de Gates.ozf)
 ozc -c Circuits.oz
-
-# 3. Compile e execute o programa principal
 ozc -c Main.oz
 ozengine Main.ozf
+```
+
+The generated `.ozf` files are build artifacts and are intentionally not versioned.
+
+## Example inputs
+
+The Haskell program evaluates the following streams:
+
+```text
+X   = [0, 1, 0, 1]
+Y   = [0, 0, 1, 1]
+Cin = [0, 0, 0, 0]
+Bin = [0, 0, 0, 0]
+```
+
+It then prints the output streams for the four arithmetic circuits.
+
+## Learning goals
+
+This project focuses on:
+
+- declarative programming;
+- dataflow concurrency;
+- lazy evaluation;
+- functional decomposition;
+- reusable abstractions;
+- modeling hardware-like behavior with streams.
