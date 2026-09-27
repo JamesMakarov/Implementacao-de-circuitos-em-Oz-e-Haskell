@@ -1,0 +1,19 @@
+name: Haskell build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install GHC
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ghc
+      - name: Compile Haskell implementation
+        run: |
+          mkdir -p build
+          ghc Haskell/Main.hs -iHaskell -outputdir build -o build/digital-logic
